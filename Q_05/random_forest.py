@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
@@ -28,9 +28,9 @@ if(__name__ == "__main__"):
     X,y = read_data()
     X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.30)
     # X_train,X_test = standard_scaler(X_train,X_test)
-    svc = SVC(kernel='linear')
-    svc.fit(X_train,y_train)
-    y_pred = svc.predict(X_test)
+    random_forest = RandomForestClassifier(n_estimators=25)
+    random_forest.fit(X_train,y_train)
+    y_pred = random_forest.predict(X_test)
     print("Accuracy:",metrics.accuracy_score(y_test, y_pred))       
     
     

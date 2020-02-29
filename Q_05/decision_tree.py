@@ -1,8 +1,11 @@
 import numpy as np
-from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import export_graphviz
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
+from sklearn import tree
+import graphviz
 
 def read_data():
     dataset = np.genfromtxt('dermatology.data',delimiter=',')
@@ -28,9 +31,11 @@ if(__name__ == "__main__"):
     X,y = read_data()
     X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.30)
     # X_train,X_test = standard_scaler(X_train,X_test)
-    svc = SVC(kernel='linear')
-    svc.fit(X_train,y_train)
-    y_pred = svc.predict(X_test)
-    print("Accuracy:",metrics.accuracy_score(y_test, y_pred))       
-    
+    decision_tree = DecisionTreeClassifier()
+    decision_tree.fit(X_train,y_train)
+    y_pred = decision_tree.predict(X_test)
+    print("Accuracy:",metrics.accuracy_score(y_test, y_pred))    
+    dot_data = tree.export_graphviz(decision_tree,out_file=None)
+    graph = graphviz.Source(dot_data)
+    graph.render("image",view=True)
     
