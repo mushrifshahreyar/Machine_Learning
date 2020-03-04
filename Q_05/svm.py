@@ -3,6 +3,7 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
+import matplotlib.pyplot as plt
 
 def read_data():
     dataset = np.genfromtxt('dermatology.data',delimiter=',')
@@ -27,8 +28,12 @@ def standard_scaler(X_train,X_test):
 if(__name__ == "__main__"):
     X,y = read_data()
     X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.30)
+
+    # plt.scatter(X_train[:,2],X_train[:,33],c=y_train,cmap='autumn')
+    # plt.show()
     # X_train,X_test = standard_scaler(X_train,X_test)
     svc = SVC(kernel='linear')
+    # svc = SVC()
     svc.fit(X_train,y_train)
     y_pred = svc.predict(X_test)
     print("Accuracy:",metrics.accuracy_score(y_test, y_pred))       
