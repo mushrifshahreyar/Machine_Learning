@@ -30,11 +30,12 @@ def standard_scaler(X_train,X_test):
 if(__name__ == "__main__"):
     X,y = read_data()
     X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.30)
+    print(X_train)
     # X_train,X_test = standard_scaler(X_train,X_test)
     decision_tree = DecisionTreeClassifier()
     decision_tree.fit(X_train,y_train)
     y_pred = decision_tree.predict(X_test)
-    print("Accuracy:",metrics.accuracy_score(y_test, y_pred))    
+    # print("Accuracy:",metrics.accuracy_score(y_test, y_pred))    
     dot_data = tree.export_graphviz(decision_tree,out_file=None)
     graph = graphviz.Source(dot_data)
     graph.render("image",view=True)
